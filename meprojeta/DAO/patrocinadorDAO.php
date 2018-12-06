@@ -1,0 +1,58 @@
+<?php
+require_once('../classes/patrocinador.php');
+require_once('absdao.php');
+
+class patrocinadorDao extends dao{
+
+  public function lista () {
+      $conn = $this->criaConexao();
+      $sql = 'SELECT * FROM patrocinador';
+      $vetor = array();
+      $res = pg_query_params($con, $sql, $vetor);
+      $listpatrocinador = array();
+      while($linha = pg_fetch_assoc($res)) {
+          $patrocinador = new Patrocinador ($linha['nome'], $linha['tipo']);
+          $patrocinador->setIdPatrocinador($linha['idPatrocinador']);
+          array_push($listpatrocinador, $patrocinador);
+      }
+
+      pg_close($conn);
+      return $listpatrocinador;
+  }
+    public function add($patrocinador){
+        $conn = $this->criaConexao();
+        $sql = 'INSERT INTO patrocinador (nome, tipo) VALUES ($1, $2)';
+        $vetor = array($patrocinador->getNome(), $patrocinador->getTipo());
+        pg_query_params($conn,$sql,$vetor);
+        pg_close($conn);
+    }
+    public function deletar($id) {
+        $conn = $this->criaConexao();
+        $sql2 = 'DELETE FROM patrocinador WHERE "idPatrocinador" = $1';
+        pg_query_params($conn, $sql2, array($id));
+        pg_close($conn);
+    }
+    public function busca($codigo) {
+        $conn = $this->criaConexao();
+        $sql = 'SELECT * FROM patrocinador WHERE "idPatrocinador" = $1';
+        $res = pg_query_params($conn, $sql, array($codigo));
+        $linha = pg_fetch_assoc($res);
+
+        $patrocinador = new Patrocinador ($linha['nome'], $linha['tipo']);
+        $patrocinador->setIdPatrocinador($linha['idPatrocinador']);
+
+        pg_close($conn);
+        return $patrocinador;
+    }
+    public function alterar($codigo, $novoNome, $novoCNPJ, $novoEndereco){
+        $conn = $this->criaConexao();
+        $sql4 = 'UPDATE cliente SET nome = $2, "CNPJ" = $3, endereço = $4 WHERE "idEmpresa" = $1';
+        $vetor2 = array($codigo, $novoNome, $novoCNPJ, $novoEndereco);
+        pg_query_params($conn,$sql4,$vetor2);
+        pg_close($conn);
+    }
+}
+//$patDao = new patrocinadorDao;
+//$pat = new Patrocinador("colgate","fisica");
+//$patDao->add($pat);
+?>
