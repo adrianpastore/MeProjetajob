@@ -53,7 +53,7 @@ class EmpresaDao extends dao{
     $vetor3 = array($codigo, $novoNome, $novoCNPJ, $novoEndereco);
     pg_query_params($conn,$sql4,$vetor3);
     pg_close($conn);
-}
+    }
 }
 //$empdao = new EmpresaDao;
 //$empresa = new Empresa('progra(Maria)', '94563441',  'Avenida das Marias, 261');

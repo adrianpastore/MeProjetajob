@@ -71,17 +71,3 @@ CREATE TABLE "projetoVaga" (
         ON DELETE SET NULL
         ON UPDATE CASCADE
 )
-
-CREATE TABLE "projetoEtapa" (
-    "idProjeto" int,
-    "idEtapa" int,
-    CONSTRAINT "projetoEtapaPK" PRIMARY KEY ("idProjeto", "idEtapa"),
-	  CONSTRAINT "projetoetapaFK" FOREIGN KEY ("idProjeto")
-		REFERENCES "projetos" ("idProjeto")
-        ON DELETE CASCADE
-        ON UPDATE CASCADE,
-	CONSTRAINT "etapaProjetoFK" FOREIGN KEY ("idEtapa")
-		REFERENCES "etapa" ("idEtapa")
-        ON DELETE SET NULL
-        ON UPDATE CASCADE
-)

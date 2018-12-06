@@ -44,10 +44,10 @@ class patrocinadorDao extends dao{
         pg_close($conn);
         return $patrocinador;
     }
-    public function alterar($codigo, $novoNome, $novoCNPJ, $novoEndereco){
+    public function alterar($codigo, $novoNome, $novoTipo){
         $conn = $this->criaConexao();
-        $sql4 = 'UPDATE cliente SET nome = $2, "CNPJ" = $3, endereço = $4 WHERE "idEmpresa" = $1';
-        $vetor2 = array($codigo, $novoNome, $novoCNPJ, $novoEndereco);
+        $sql4 = 'UPDATE patrocinador SET nome = $2, tipo = $3 WHERE "idPatrocinador" = $1';
+        $vetor2 = array($codigo, $novoNome, $novoTipo);
         pg_query_params($conn,$sql4,$vetor2);
         pg_close($conn);
     }

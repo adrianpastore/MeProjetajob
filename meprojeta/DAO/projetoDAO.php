@@ -65,6 +65,13 @@ class projetoDao extends dao{
         pg_close($conn);
         return $buscaprojeto;
     }
+    public function alterar($codigo, $novoNome, $novoDesc, $novoCNPJ){
+        $conn = $this->criaConexao();
+        $sql4 = 'UPDATE projetos SET nome = $2, descricao = $3, "CNPJ" = $4 WHERE "idProjeto" = $1';
+        $vetor3 = array($codigo, $novoNome, $novoDesc, $novoCNPJ);
+        pg_query_params($conn,$sql4,$vetor3);
+        pg_close($conn);
+    }
 }
 
 /*$empresadao = new EmpresaDao;

@@ -1,10 +1,29 @@
-<?php
+<?php require('../base/header.php'); ?>
 
-  require_once('../classes/empresa.php');
-  require_once('../DAO/empresaDAO.php');
-  $empresaDao = new EmpresaDao();
-  $empresa = new Empresa($_POST['nomeEmpresa'],$_POST['cnpj'],$_POST['enderecoEmpresa']);
-  $empresaDao->alterar($_GET['idEmpresa'], $cliente->getNome(),$cliente->getCPF(),$cliente->getEmail());
-  require_once('../navegacao/empresa.php');
 
-?>
+<h3 class="display-4 text-center"> Cadastro de Empresas </h3>
+<hr class="bg-dark mb-4 w-25">
+<div class="container container mt-4 mb-5">
+    <div class="container">
+
+      <form action="../alterar/empresaAltera.php?idEmpresa=<?php echo $_GET['idEmpresa'] ?>" method="POST">
+        <div class="form-group">
+          <label>Nome da Empresa ou Instituição:</label>
+          <input name="nomeEmpresa" type="text" class="form-control" placeholder="Empresa ou Instituição">
+        </div>
+        <div class="form-group">
+          <label>CNPJ:</label>
+          <input name="cnpj" type="text" maxlength="14" class="form-control" placeholder="CNPJ">
+        </div>
+        <div class="form-group">
+          <label>Endereço:</label>
+          <input name="enderecoEmpresa" type="text" class="form-control" placeholder="Ex.:Avenida do Rosário, blc 5, apt 2 - São Paulo">
+        </div>
+        <input name="alterar" class="btn btn-outline-info" type="submit" value="Alterar">
+      </form>
+
+    </div>
+</div>
+
+
+<?php require('../base/footer.php'); ?>
